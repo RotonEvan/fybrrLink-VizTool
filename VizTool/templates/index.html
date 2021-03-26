@@ -3,42 +3,101 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" 
-	integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet"> 
 	<title>fybrrLink-VizTool</title>
+
+	<style>
+		html {
+			font-size: 16px;
+			overflow-x: hidden;
+		}
+		.title {
+			margin-top: 1rem;
+			margin-bottom: 1rem;
+			position: relative;
+			text-align: center;
+			font-family: 'Gloria Hallelujah', cursive;
+			font-size: 2rem;
+		}
+		.center {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 50%;
+		}
+		.graph {
+			margin-right: auto;
+			margin-left: auto;
+			width: 100vw !important;
+		}
+		.responsive {
+			margin: auto;
+			width: 100%;
+			max-width: 560px;
+			height: auto;
+		}
+		
+		.container {
+			width: 560px;
+			margin-top: 1.5rem;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+
+		@media only screen and (max-width: 768px) {
+			.container {
+				width: 360px;
+				margin-top: 2rem;
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
+
+
+		.row {
+			margin-bottom: 1rem;
+		}
+		.col-sm {
+			margin-bottom: .5rem;
+		}
+	</style>
+
 </head>
 <body>
-	<img src="data:image/png;base64,{{ data }}" alt="" height="560" ,width="560">
+	<div class="title">
+		<p>fybrrLink-VizTool</p>
+		<p style="font-size: 1.25rem;">Modified Bresenham's Routing Algorithm</p>
+	</div>
+	<div class="graph ">
+		<img src="data:image/png;base64,{{ data }}" alt="" class="center responsive">
+	</div>
 
-	<!-- <form action="/input" method="post">
-		<input type="text" name="start-x">
-		<input type="text" name="start-y">
-		<input type="text" name="end-x">
-		<input type="text" name="end-y">
-		<button type="submit">Find Route</button>
-	</form> -->
-
-	<form action="/input" enctype="multipart/form-data" method="post">
-		{%  csrf_token %}
-		<div class="form-row">
-		  <div class="form-group col-md-3">
-			<label for="start-x">Start X:</label>
-			<input type="number" class="form-control" id="start-x" placeholder="Start X" name="start-x">
-		  </div>
-		  <div class="form-group col-md-3">
-			<label for="start-y">Start Y:</label>
-			<input type="number" class="form-control" id="start-y" placeholder="Start Y" name="start-y">
-		  </div>
-		  <div class="form-group col-md-3">
-			<label for="end-x">End X:</label>
-			<input type="number" class="form-control" id="end-x" placeholder="End X" name="end-x">
-		  </div>
-		  <div class="form-group col-md-3">
-			<label for="start-y">End Y:</label>
-			<input type="number" class="form-control" id="end-y" placeholder="End Y" name="end-y">
-		  </div>
-		</div>
-		<button type="submit" class="btn btn-primary">Find Route</button>
-	  </form>
+	<div class="container">
+		<form action="/input" enctype="multipart/form-data" method="post" class="center">
+			{%  csrf_token %}
+			<div class="form-group row">
+			  <div class="form-group col-sm">
+				<input type="number" class="form-control" id="start-x" placeholder="Start X" name="start-x">
+			  </div>
+			  <div class="form-group col-sm">
+				<input type="number" class="form-control" id="start-y" placeholder="Start Y" name="start-y">
+			  </div>
+			</div>
+			<div class="form-group row">
+			  <div class="form-group col-sm">
+				<input type="number" class="form-control" id="end-x" placeholder="End X" name="end-x">
+			  </div>
+			  <div class="form-group col-sm">
+				<input type="number" class="form-control" id="end-y" placeholder="End Y" name="end-y">
+			  </div>
+			</div>
+			<div class="form-group row d-grid gap-2 d-sm-block"><button type="submit" class="btn btn-primary">Find Route</button></div>
+		</form>
+	</div>
 </body>
 </html>
