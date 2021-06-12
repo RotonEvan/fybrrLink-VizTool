@@ -15,9 +15,9 @@ import io
 
 def index(request):
 	F = [(2, 15), (16, 2)]
-	pic_hash = bresenham.find_route(F)
+	pic_hash, t_d, t_b = bresenham.find_route(F)
 	uri =  urllib.parse.quote(pic_hash)
-	return render(request, 'index.html', {'data': uri})
+	return render(request, 'index.html', {'data': uri, 'time_d': t_d, 'time_b': t_b})
 
 def input(request):
 	if request.method == 'POST':
@@ -28,13 +28,13 @@ def input(request):
 		endY = int(request.POST.get('end-y'))
 
 		F = [(startX, startY), (endX, endY)]
-		pic_hash = bresenham.find_route(F)
+		pic_hash, t_d, t_b = bresenham.find_route(F)
 		uri =  urllib.parse.quote(pic_hash)
-		return render(request, 'index.html', {'data': uri})
+		return render(request, 'index.html', {'data': uri, 'time_d': t_d, 'time_b': t_b})
 	
 
 def plot_graph(request):
-	F = [(12, 2), (8, 10), (14, 11), (6, 3), (2, 1), (10, 17), (2, 17), (14, 15), (2, 15), (16, 2)]
-	pic_hash = bresenham.find_route(F)
+	F = [(12, 2), (8, 10)]
+	pic_hash, t_d, t_b = bresenham.find_route(F)
 	uri =  urllib.parse.quote(pic_hash)
-	return render(request, 'index.html', {'data': uri})
+	return render(request, 'index.html', {'data': uri, 'time_d': t_d, 'time_b': t_b})

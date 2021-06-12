@@ -46,6 +46,33 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
+
+		.time {
+			text-align: left;
+			font-size: 1rem !important;
+			position: relative;
+			margin: auto;
+			width: max-content;
+		}
+		.time .red:before {
+			content:"\A";
+			width:15px;
+			height:15px;
+			border-radius:50%;
+			background: red;
+			display:inline-block;
+			margin:0 10px;
+		}
+
+		.time .green:before {
+			content:"\A";
+			width:15px;
+			height:15px;
+			border-radius:50%;
+			background: lightgreen;
+			display:inline-block;
+			margin:0 10px;
+		}
 		
 
 		@media only screen and (max-width: 768px) {
@@ -75,6 +102,10 @@
 	</div>
 	<div class="graph ">
 		<img src="data:image/png;base64,{{ data }}" alt="" class="center responsive">
+	</div>
+	<div class="time">
+		<h3 class="red" style="font-size: 1.15rem;">Dijkstra: {{ time_d }} sec</h3>
+		<h3 class="green" style="font-size: 1.15rem">fybrrLink: {{ time_b }} sec</h3>
 	</div>
 
 	<div class="container">

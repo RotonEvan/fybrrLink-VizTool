@@ -5,6 +5,7 @@ from matplotlib.figure import Figure
 import random
 import base64
 import io
+import time
 
 
 def draw_graph(node_rem):
@@ -59,18 +60,22 @@ def draw_graph(node_rem):
 		 for y in range(1, size - 2, 2)
 		 if (x / 2) % 2 != 0])
 
-	# print(node_rem)
-
 	nx.draw(G_new, pos=pos1,
 			node_color='lightblue',
 			with_labels=True,
 			node_size=600)
 	# G_new.add_edge(a,b, edge_color='b',width = 6)
 	# nx.draw(G_new, pos=pos1, node_color="lightblue", with_labels=True, node_size=600)
+	begin_d = time.time()
+	dijs = nx.dijkstra_path(G_new, node_rem[0][0], node_rem[0][-1])
+	end_d = time.time()
+
+	t_d = end_d - begin_d
+
+	nx.draw(G_new, pos=pos1, nodelist=dijs, node_color="red", with_labels=True, node_size=600)
+
 	for i in node_rem:
-		color = "%06x" % random.randint(0, 0xFFFFFF)
-		color = "#"+color
-		nx.draw(G_new, pos=pos1, nodelist=i, node_color=color, with_labels=True, node_size=600)
+		nx.draw(G_new, pos=pos1, nodelist=i, node_color="lightgreen", with_labels=True, node_size=600)
 	
 	# plt.show()
 	canvas = FigureCanvas(fig)
@@ -80,7 +85,7 @@ def draw_graph(node_rem):
 	pic_IObytes.seek(0)
 	pic_hash = base64.b64encode(pic_IObytes.read())
 
-	return pic_hash
+	return pic_hash, t_d
 
 
 
@@ -157,10 +162,14 @@ def find_route(F):
 	for j in F:
 		p = (j[1], j[0])
 		F_new.append(p)
+	t_b = 0
 	for i in range(0, len(F_new)-1, 2):
 		print("Source Coordinate \t: ", F[i])
 		print("Destination Coordinate \t: ", F[i+1])
+		begin_b = time.time()
 		line = get_line(F_new[i], F_new[i + 1])
+		end_b = time.time()
+		t_b = end_b - begin_b
 		line_new = []
 		for j in line:
 			p = (j[1], j[0])
@@ -168,9 +177,9 @@ def find_route(F):
 		print("Path	\t \t: ", line_new)
 		lines.append(line_new)
 	
-	pic_hash = draw_graph(lines)
+	pic_hash, t_d = draw_graph(lines)
 
-	return pic_hash
+	return pic_hash, round(t_d*1000, 3), round(t_b*1000, 3)
 
 if __name__ == "__main__":
 	F = [(12, 2), (8, 10), (14, 11), (6, 3), (2, 1), (10, 17), (2, 17), (14, 15), (2, 15), (16, 2)]
